@@ -131,7 +131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1109147959}
   - component: {fileID: 1109147958}
-  - component: {fileID: 1109147960}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -154,11 +153,24 @@ MonoBehaviour:
   ground: {fileID: 8133360016726891164, guid: 035332652163d4cd0af76ea104d22c92, type: 3}
   blob: {fileID: 6857234042811335420, guid: 672095b083d93487084f6444551fe4a2, type: 3}
   coin: {fileID: 2264451008486191864, guid: 6fc1afafc2a654186aa9549e11523023, type: 3}
-  gridSize: 20
+  gridSize: 25
   coinToSpawn: 10
+  coinPositions:
+  - {x: -8, y: 0.5, z: 8}
+  - {x: 8, y: 0.5, z: 8}
+  - {x: -8, y: 0.5, z: -8}
+  - {x: 8, y: 0.5, z: -8}
+  - {x: -4, y: 0.5, z: -6}
+  - {x: 4, y: 0.5, z: 4}
+  - {x: 6, y: 0.5, z: 4}
+  - {x: -6, y: 0.5, z: 5}
+  - {x: 5, y: 0.5, z: -5}
+  - {x: 6, y: 0.5, z: -1}
   generationNum: 0
   bestGenes: []
   bestFitness: []
+  maxTime: 30
+  countDown: 0
 --- !u!4 &1109147959
 Transform:
   m_ObjectHideFlags: 0
@@ -173,20 +185,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1109147960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1109147957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b168484bd12e40069cb5d57db4e3c10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxTime: 10
-  countDown: 0
 --- !u!1 &1556400003
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +328,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -355,10 +353,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106282302}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 40, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}

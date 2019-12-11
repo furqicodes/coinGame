@@ -1,16 +1,15 @@
 ﻿<Properties StartupConfiguration="{34C9A055-88AB-7708-7908-FF733DE94B3D}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Blob.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GridManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/Timer.cs" Line="54" Column="158" />
-      <File FileName="Assets/Scripts/GridManager.cs" Line="17" Column="34" />
-      <File FileName="Assets/Scripts/Blob.cs" Line="69" Column="124" />
-      <File FileName="Assets/Scripts/BlobMov.cs" Line="22" Column="1" />
-      <File FileName="Assets/Scripts/Coin.cs" Line="10" Column="1" />
+      <File FileName="Assets/Scripts/GridManager.cs" Line="48" Column="13" />
+      <File FileName="Assets/Scripts/Blob.cs" Line="76" Column="74" />
+      <File FileName="Assets/Scripts/BlobMov.cs" />
+      <File FileName="Assets/Scripts/Coin.cs" Line="10" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="74f6ea5c-36e9-449e-b494-e6fc9fe2589f" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="7b695188-6ed0-41b7-b680-babcdee39582" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

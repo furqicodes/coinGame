@@ -9,20 +9,21 @@ public class Blob : MonoBehaviour
     public List<GameObject> coins;
     private GameObject nearestCoin;
 
-    private double angle;
     private float totalDistance;
     private Vector3 lastPosition;
 
     //Genetic Algorithm
     [SerializeField]
     public double[] weights = new double[4];
-    private double biasNode = -1d;
-    public double o1, o2;
+    public double biasNode = -1d;
+    private double[] oN = new double[2];
+    private GridManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
-        double[] best = GameObject.Find("GameObject").GetComponent<GridManager>().bestGenes;
+        gm = GameObject.Find("GameObject").GetComponent<GridManager>();
+        double[] best = gm.bestGenes;
         if (best.Length == 0)
         {
             //Genetic Algorithm
@@ -43,7 +44,7 @@ public class Blob : MonoBehaviour
     void Update()
     {
         //Blob forward direction indicator
-        Debug.DrawRay(transform.position, Vector3.forward, Color.red);
+        Debug.DrawRay(transform.position, transform.forward, Color.red);
 
         //Total distance value for fitness calculation
         totalDistance += Vector3.Distance(lastPosition, transform.position);
@@ -52,28 +53,27 @@ public class Blob : MonoBehaviour
         if (coins.Count > 0)
         {
             nearestCoin = NearestCoin();
-            angle = AngleToCoin();
 
             //Genetic Algorithm
             double temp1 = weights[0] * DistanceToCoin(nearestCoin) + weights[2] * AngleToCoin() - biasNode;
             double temp2 = weights[1] * DistanceToCoin(nearestCoin) + weights[3] * AngleToCoin() - biasNode;
-            o1 = Sigmoid(temp1);
-            o2 = Sigmoid(temp2);
+            oN[0] = Sigmoid(temp1);
+            oN[1] = Sigmoid(temp2);
         }
 
     }
 
-    public float CalculateFitness()
+    public double getoN(int index)
     {
-        //Fitness Function 1
-        return (GameObject.Find("GameObject").GetComponent<GridManager>().coinToSpawn - coins.Count) * 100 - totalDistance;
-        ////Fitness Function 2
-        //return Mathf.Exp(GameObject.Find("GameObject").GetComponent<GridManager>().coinToSpawn - coins.Count) - totalDistance;
+        return oN[index];
     }
 
-    public void PrintFitness()
+    public float CalculateFitness()
     {
-        print("Index: " + index + "Score: " + CalculateFitness());
+        ////Fitness Function 1
+        //return (gm.coinToSpawn - coins.Count) * 100 - totalDistance;
+        //Fitness Function 2
+        return Mathf.Exp(gm.coinToSpawn - coins.Count) - totalDistance/10;
     }
 
     public double DistanceToCoin(GameObject game)
@@ -81,11 +81,16 @@ public class Blob : MonoBehaviour
         return Vector3.Distance(transform.position, game.transform.position);
     }
 
+    public double DistanceToWall()
+    {
+        return 0d;
+    }
+
     public double AngleToCoin()
     {
         if (nearestCoin.Equals(null))
         {
-            return 0;
+            return 0d;
         }
         else
         {
@@ -115,13 +120,30 @@ public class Blob : MonoBehaviour
 
     public double[] MutateWeights()
     {
-        double[] bestGenes = GameObject.Find("GameObject").GetComponent<GridManager>().bestGenes;
-        double[] tempWeights = new double[weights.Length];
-        for (int i = 0; i < weights.Length; i++)
+        double[] bestGenes = gm.bestGenes;
+        if (this.index == 0)
         {
-            tempWeights[i] = GenerateNormalRandom(bestGenes[i] / 2, bestGenes[i] / 6);
+            return bestGenes;
         }
-        return tempWeights;
+        else
+        {
+            double[] tempWeights = new double[weights.Length];
+            for (int i = 0; i < weights.Length; i++)
+            {
+                if (this.index < Mathf.Pow(gm.gridSize,2) / 2)
+                {
+                    ////Mutation type 1
+                    //tempWeights[i] = GenerateNormalRandom(bestGenes[i] / 2, bestGenes[i] / 6);
+                    //Mutation type 2
+                    tempWeights[i] = bestGenes[i] + Random.Range(-1f, 1f) * 0.1f;
+                }
+                else
+                {
+                    tempWeights[i] = bestGenes[i] + Random.Range(-1f, 1f) * 0.5f;
+                }
+            }
+            return tempWeights;
+        }
     }
 
     public static double Sigmoid(double input)
@@ -129,14 +151,14 @@ public class Blob : MonoBehaviour
         return (1.0 / (1.0 + Mathf.Exp(-(float)input)));
     }
 
-    public static double GenerateNormalRandom(double mu, double sigma)
-    {
-        float rand1 = Random.Range(0.0f, 1.0f);
-        float rand2 = Random.Range(0.0f, 1.0f);
+    //public static double GenerateNormalRandom(double mu, double sigma)
+    //{
+    //    float rand1 = Random.Range(0.0f, 1.0f);
+    //    float rand2 = Random.Range(0.0f, 1.0f);
 
-        double n = Mathf.Sqrt(-2.0f * Mathf.Log(rand1)) * Mathf.Cos((2.0f * Mathf.PI) * rand2);
+    //    double n = Mathf.Sqrt(-2.0f * Mathf.Log(rand1)) * Mathf.Cos((2.0f * Mathf.PI) * rand2);
 
-        return (mu + sigma * n);
-    }
+    //    return (mu + sigma * n);
+    //}
 
 }
